@@ -1,0 +1,10 @@
+django==1.11.6
+django-redis==4.8.0
+django-bootstrap3==9.0.0
+django-markdownx==2.0.21
+django-markupfield==1.4.3
+django-imagekit==4.0.1
+pillow==4.3.0
+PyMySQL=0.7.11
+redis==2.10.6
+uWSGI==2.0.15
