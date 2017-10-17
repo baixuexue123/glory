@@ -38,4 +38,5 @@ class BlogDayArchiveView(BlogViewMixin, DayArchiveView):
 
 
 class BlogDateDetailView(BlogViewMixin, DateDetailView):
-    pass
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'

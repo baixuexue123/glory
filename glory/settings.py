@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -45,17 +46,13 @@ TEMPLATES = [
     },
 ]
 
-FILE_UPLOAD_HANDLERS = (
-    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
-)
-
 WSGI_APPLICATION = 'glory.wsgi.application'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demo',
-        'USER': 'demo',
+        'NAME': 'glory',
+        'USER': 'glory',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',

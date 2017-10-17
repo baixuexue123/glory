@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Glory{% endblock %}
+{% block content %}
+<div class="col-xs-12 col-sm-9">
+    {% if posts %}
+        <ol>
+            {% for post in posts %}
+                <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                <p>{{ post.pub_date }}
+                    作者：{{ post.author }}
+                    标签：{% for tag in post.tags.all %} {{ tag.name }}{% endfor %}
+                    阅读：{{ post.views }}
+                </p>
+                <hr>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p  style="color: red;">There are currently no posts to display.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load markup %}
+{% block head %}
+    <link href="{% static "css/solarized.css" %}" rel="stylesheet">
+{#    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css">#}
+{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<h4>{{ post.title }}</h4>
+<div>{{ post.body | markup1 }}</div>
+{% endblock %}
+{% block js %}
+{#<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>#}
+{#<script>hljs.initHighlightingOnLoad();</script>#}
+{% endblock %}
