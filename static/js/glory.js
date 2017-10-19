@@ -1,5 +1,3 @@
-bootbox.setLocale("zh_CN");
-
 function loading(flag){
     var oLoading = $('#loading');
     if (oLoading){

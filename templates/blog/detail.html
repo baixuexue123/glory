@@ -2,15 +2,14 @@
 {% load staticfiles %}
 {% load markup %}
 {% block head %}
-    <link href="{% static "css/solarized.css" %}" rel="stylesheet">
-{#    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css">#}
+<link href="{% static "css/darkula.css" %}" rel="stylesheet">
 {% endblock %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <h4>{{ post.title }}</h4>
-<div>{{ post.body | markup1 }}</div>
+<div>{{ post.body | markup }}</div>
 {% endblock %}
 {% block js %}
-{#<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>#}
-{#<script>hljs.initHighlightingOnLoad();</script>#}
+<script src="{% static "js/highlight.min.js" %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

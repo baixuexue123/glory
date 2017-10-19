@@ -1,6 +1,5 @@
 django==1.11.6
 django-redis==4.8.0
-django-bootstrap3==9.0.0
 django-imagekit==4.0.1
 pillow==4.3.0
 PyMySQL=0.7.11

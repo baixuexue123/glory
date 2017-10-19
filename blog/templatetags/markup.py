@@ -1,8 +1,5 @@
-import markdown
 import mistune
-from pygments import highlight
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters import html
+from mistune import escape
 
 from django import template
 from django.utils.safestring import mark_safe
@@ -10,43 +7,21 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
-@register.filter
-def markup1(value):
-    md = markdown.markdown(value,
-                           extensions=['markdown.extensions.extra',
-                                       'markdown.extensions.codehilite',
-                                       'markdown.extensions.toc'])
-    return mark_safe(md)
-
-
-def block_code(text, lang, inlinestyles=False, linenos=False):
-    if not lang:
-        text = text.strip()
-        return u'<pre><code>%s</code></pre>\n' % mistune.escape(text)
-
-    try:
-        lexer = get_lexer_by_name(lang, stripall=True)
-        formatter = html.HtmlFormatter(
-            noclasses=inlinestyles, linenos=linenos
-        )
-        code = highlight(text, lexer, formatter)
-        if linenos:
-            return '<div class="highlight">%s</div>\n' % code
-        return code
-    except:
-        return '<pre class="%s"><code>%s</code></pre>\n' % (lang, mistune.escape(text))
-
-
 class HighlightRenderer(mistune.Renderer):
-    def block_code(self, text, lang=None):
-        # renderer has an options
-        inlinestyles = self.options.get('inlinestyles', False)
-        linenos = self.options.get('linenos', False)
-        return block_code(text, lang, inlinestyles, linenos)
+    def block_code(self, code, lang=None):
+        """Rendering block level code. ``pre > code``.
+
+        :param code: text content of the code block.
+        :param lang: language of the given code.
+        """
+        code = code.rstrip('\n')
+        if not lang:
+            code = escape(code, smart_amp=False)
+            return '<pre><code class="nohighlight">%s\n</code></pre>\n' % code
+        code = escape(code, quote=True, smart_amp=False)
+        return '<pre><code class="%s">%s\n</code></pre>\n' % (lang, code)
 
 
 @register.filter
-def markup3(value):
-    renderer = HighlightRenderer(linenos=False, inlinestyles=False)
-    md = mistune.Markdown(escape=True, renderer=renderer)
+def markup(value, md=mistune.Markdown(escape=True, renderer=HighlightRenderer())):
     return mark_safe(md(value))
