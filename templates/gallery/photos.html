@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Gallery{% endblock %}
+{% block content %}
+<div class="am-g am-g-fixed blog-fixed blog-content">
+    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-bordered" data-am-gallery="{ pureview: true }">
+        {% for photo in photos %}
+        <li>
+            <div class="am-gallery-item">
+                <img src="{{ photo.image_thumbnail.url }}" data-rel="{{ photo.image.url }}">
+                <h3 class="am-gallery-title">{{ photo.desc }}</h3>
+                <div class="am-gallery-desc">{{ photo.pub_date.date }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Glory{% endblock %}
+{% block content %}
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-8 am-u-sm-12">
+    {% for date in date_list %}
+        <h1>{{ date.year }}</h1>
+        <hr>
+        {% for post in object_list %}
+        <ul>
+            <li>
+                <span class="am-u-sm-6 am-u-md-4"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></span>
+                <span class="am-u-sm-6 am-u-md-4">{{ post.pub_date.date }}</span>
+            </li>
+        </ul>
+        {% endfor %}
+    {% endfor %}
+    </div>
+    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g">
+            <h2 class="blog-title"><span>分类</span></h2>
+            <div class="am-u-sm-12 blog-clear-padding">
+                {% for c in categories %}
+                    <a class="blog-tag" href="{% url "blog:archives" %}?c={{ c.pk }}">{{ c.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

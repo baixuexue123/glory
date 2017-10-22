@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 class Tag(models.Model):
@@ -33,7 +35,7 @@ class PostQuerySet(models.QuerySet):
 class Post(models.Model):
 
     title = models.CharField(max_length=100)
-    summary = models.TextField(blank=True)
+    summary = models.TextField()
     body = models.TextField()
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
@@ -42,6 +44,9 @@ class Post(models.Model):
     views = models.IntegerField(default=0)
     author = models.CharField(max_length=48)
     is_active = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='blog')
+    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(400, 205)],
+                                     format='JPEG', options={'quality': 60})
 
     objects = PostQuerySet.as_manager()
 

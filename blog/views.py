@@ -1,15 +1,14 @@
+from django.views.generic import ListView
 from django.views.generic.dates import (
-    ArchiveIndexView, DateDetailView, DayArchiveView,
-    MonthArchiveView, YearArchiveView,
+    ArchiveIndexView, DateDetailView
 )
+from .models import Post, Category
 
-from .models import Post
 
-
-class BlogViewMixin:
+class PostViewMixin:
 
     date_field = 'pub_date'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_allow_future(self):
         return self.request.user.is_staff
@@ -21,22 +20,35 @@ class BlogViewMixin:
             return Post.objects.published()
 
 
-class BlogArchiveIndexView(BlogViewMixin, ArchiveIndexView):
-    pass
+class IndexView(PostViewMixin, ListView):
+    model = Post
+    template_name = 'index.html'
+    paginate_by = 5
 
 
-class BlogYearArchiveView(BlogViewMixin, YearArchiveView):
-    make_object_list = True
+class PostArchiveIndexView(PostViewMixin, ArchiveIndexView):
+    allow_empty = True
+    date_list_period = 'year'
+    template_name = 'blog/archive.html'
+
+    def get_dated_items(self):
+        """
+        Return (date_list, items, extra_context) for this request.
+        """
+        lookup = {}
+        c = self.request.GET.get('c')
+        if c:
+            lookup['category'] = c
+        qs = self.get_dated_queryset(**lookup)
+        date_list = self.get_date_list(qs, ordering='DESC')
+
+        if not date_list:
+            qs = qs.none()
+
+        extra = {'categories': Category.objects.all()}
+        return (date_list, qs, extra)
 
 
-class BlogMonthArchiveView(BlogViewMixin, MonthArchiveView):
-    pass
-
-
-class BlogDayArchiveView(BlogViewMixin, DayArchiveView):
-    pass
-
-
-class BlogDateDetailView(BlogViewMixin, DateDetailView):
+class PostDateDetailView(PostViewMixin, DateDetailView):
     template_name = 'blog/detail.html'
     context_object_name = 'post'

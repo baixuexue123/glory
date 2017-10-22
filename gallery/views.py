@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Photo
 
-# Create your views here.
+
+class PhotoListView(LoginRequiredMixin, ListView):
+    model = Photo
+    template_name = 'gallery/photos.html'
+    paginate_by = 30
+    context_object_name = 'photos'

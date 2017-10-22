@@ -1,10 +1,6 @@
 django==1.11.6
 django-redis==4.8.0
 django-imagekit==4.0.1
-pillow==4.3.0
 PyMySQL=0.7.11
 redis==2.10.6
-markdown==2.6.9
 mistune==0.7.4
-pygments==2.2.0
-uWSGI==2.0.15

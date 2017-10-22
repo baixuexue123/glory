@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Glory{% endblock %}
+{% block content %}
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-12 am-u-sm-12">
+        {% for post in posts %}
+        <article class="am-g blog-entry-article">
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                <a href="{{ post.get_absolute_url }}">
+                    <img src="{{ post.image_thumbnail.url }}" alt="" class="am-u-sm-12">
+                </a>
+            </div>
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+                <p>{{ post.summary }}</p>
+                <p align="right">{{ post.pub_date.date }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

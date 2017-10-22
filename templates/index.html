@@ -1,21 +1,57 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %}Glory{% endblock %}
 {% block content %}
-<div class="col-xs-12 col-sm-9">
-    {% if posts %}
-        <ol>
-            {% for post in posts %}
-                <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-                <p>{{ post.pub_date }}
-                    作者：{{ post.author }}
-                    标签：{% for tag in post.tags.all %} {{ tag.name }}{% endfor %}
-                    阅读：{{ post.views }}
-                </p>
-                <hr>
-            {% endfor %}
-        </ol>
-    {% else %}
-        <p  style="color: red;">There are currently no posts to display.</p>
-    {% endif %}
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-8 am-u-sm-12">
+        {% for post in page_obj %}
+        <article class="am-g blog-entry-article">
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                <a href="{{ post.get_absolute_url }}">
+                    <img src="{{ post.image_thumbnail.url }}" alt="" class="am-u-sm-12">
+                </a>
+            </div>
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+                <p>{{ post.summary }}</p>
+                <p align="right">{{ post.pub_date.date }}</p>
+            </div>
+        </article>
+        {% endfor %}
+        <ul class="am-pagination">
+            {% if page_obj.has_previous %}
+            <li class="am-pagination-prev"><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li class="am-pagination-next"><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>About ME</span></h2>
+            <img src="{% static "images/f14.jpg" %}" alt="about me" class="blog-entry-img">
+            <p>Pysaoke</p>
+            <p>我是妹子UI，中国首个开源 HTML5 跨屏前端框架</p>
+            <p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+            <p>
+                <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+                <a href=""><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+                <a href=""><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+                <a href=""><span class="am-icon-reddit am-icon-fw blog-icon"></span></a>
+                <a href=""><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
+            </p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>么么哒</span></h2>
+            <ul class="am-list">
+                <li><a href="#">每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></li>
+                <li><a href="#">我把最深沉的秘密放在那里。</a></li>
+                <li><a href="#">你不懂我，我不怪你。</a></li>
+                <li><a href="#">每个人都有一道伤口， 或深或浅，盖上布，以为不存在。</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
