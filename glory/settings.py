@@ -193,31 +193,3 @@ LOGGING = {
         }
     }
 }
-
-BOOTSTRAP3 = {
-    'jquery_url': '//static/jquery/jquery.min.js',
-    'base_url': '//static/bootstrap/',
-    'css_url': None,
-    'theme_url': None,
-    'javascript_url': None,
-    'javascript_in_head': False,
-    'include_jquery': False,
-    'horizontal_label_class': 'col-md-3',
-    'horizontal_field_class': 'col-md-9',
-    'set_required': True,
-    'set_disabled': False,
-    'set_placeholder': True,
-    'required_css_class': '',
-    'error_css_class': 'has-error',
-    'success_css_class': 'has-success',
-    'formset_renderers': {
-        'default': 'bootstrap3.renderers.FormsetRenderer',
-    },
-    'form_renderers': {
-        'default': 'bootstrap3.renderers.FormRenderer',
-    },
-    'field_renderers': {
-        'default': 'bootstrap3.renderers.FieldRenderer',
-        'inline': 'bootstrap3.renderers.InlineFieldRenderer',
-    },
-}
