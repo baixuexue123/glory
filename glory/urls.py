@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^gallery/', include('gallery.urls', namespace='gallery')),
+    url(r'^cms/', include('cms.urls', namespace='cms')),
 ]
 
 
