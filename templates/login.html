@@ -26,18 +26,20 @@
         <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
             <h1 class="log-title am-animation-slide-top">Pysaoke</h1>
             <br>
-            <form class="am-form" id="log-form">
+            <form class="am-form" id="log-form" method="post">
+                {% csrf_token %}
                 <div class="am-input-group am-radius am-animation-slide-left">
-                    <input type="text" class="am-radius" placeholder="账号" required/>
+                    <input name="username" value="{{ form.username.value | default_if_none:"" }}" type="text" class="am-radius" placeholder="账号" required>
                     <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
                 </div>
                 <br>
                 <div class="am-input-group am-animation-slide-left log-animation-delay">
-                    <input type="password" class="am-form-field am-radius log-input" placeholder="密码" required>
+                    <input name="password" value="{{ form.password.value | default_if_none:"" }}" type="password" class="am-form-field am-radius log-input" placeholder="密码" required>
                     <span class="am-input-group-label log-icon am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
                 </div>
                 <br>
                 <button type="submit" class="am-btn am-btn-primary am-btn-block am-btn-lg am-radius am-animation-slide-bottom log-animation-delay">登 录</button>
+                <p class="am-text-danger">{% if form.errors %}拒绝登录{% endif %}</p>
             </form>
         </div>
     </div>
