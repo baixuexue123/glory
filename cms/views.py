@@ -18,7 +18,3 @@ def upload_image(request):
         'message': "success",
         'url': img.image.url    # 上传成功时才返回
     })
-
-
-def detail(request):
-    return render(request, "cms/detail.html")

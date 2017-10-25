@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from uuslug import uuslug
 
 
 class Tag(models.Model):
@@ -39,7 +41,7 @@ class Post(models.Model):
     body = models.TextField()
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
-    slug = models.SlugField(unique_for_date='pub_date')
+    slug = models.SlugField(unique_for_date='pub_date', editable=False)
     pub_date = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     author = models.CharField(max_length=48)
@@ -56,6 +58,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(self.title, instance=self)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         kwargs = {

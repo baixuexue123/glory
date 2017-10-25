@@ -10,7 +10,6 @@ admin.site.register(Category)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'pub_date', 'is_active', 'is_published', 'author')
     list_filter = ('is_active',)
-    prepopulated_fields = {"slug": ("title",)}
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super().formfield_for_dbfield(db_field, **kwargs)
