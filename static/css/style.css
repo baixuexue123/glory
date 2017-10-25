@@ -120,6 +120,10 @@ body {
  * .blog-bor    border:1px solid #e5e5e5
  * css复用 与 规范化
  */
+#doc-content {
+    padding: 0;
+    overflow:auto;
+}
 a {
     color:#474747;
 }
