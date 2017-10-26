@@ -52,3 +52,9 @@ class PostArchiveIndexView(PostViewMixin, ArchiveIndexView):
 class PostDateDetailView(PostViewMixin, DateDetailView):
     template_name = 'blog/detail.html'
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['prev'] = Post.objects.filter(id__lt=self.object.id).order_by('id').last()
+        context['next'] = Post.objects.filter(id__gt=self.object.id).order_by('id').first()
+        return context
