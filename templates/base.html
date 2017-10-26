@@ -31,6 +31,11 @@
                 <li{% if request.path == "/blog/archives/" %} class="am-active"{% endif %}><a href="{% url "blog:archives" %}">归档</a></li>
                 <li{% if request.path == "/gallery/photos/" %} class="am-active"{% endif %}><a href="{% url "gallery:photos" %}">YOYO日记</a></li>
             </ul>
+            <form class="am-topbar-form am-topbar-right am-form-inline" method="post" role="search">
+                <div class="am-form-group">
+                    <input type="text" name="title" class="am-form-field am-input-sm" placeholder="搜索">
+                </div>
+            </form>
         </div>
     </nav>
     <hr>

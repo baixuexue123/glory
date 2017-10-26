@@ -15,9 +15,13 @@ class PostViewMixin:
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Post.objects.all()
+            posts = Post.objects.all()
         else:
-            return Post.objects.published()
+            posts = Post.objects.published()
+        title = self.request.POST.get('title')
+        if title:
+            posts = posts.filter(title__contains=title)
+        return posts
 
 
 class IndexView(PostViewMixin, ListView):
