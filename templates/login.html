@@ -8,42 +8,44 @@
     <meta name="description" content="glory">
     <meta name="keywords" content="Blog Django Python">
     <meta name="author" content="Pysaoke">
-    <title>Glory - {% block title %}{% endblock %}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Glory"/>
+    <title>Glory</title>
     <link rel="apple-touch-icon-precomposed" href="{% static "images/app-icon72x72@2x.png" %}">
     <link rel="stylesheet" href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css">
 </head>
 <body>
-<header>
-    <div class=""><h1><a href="/">AmazeUI</a></h1></div>
-</header>
+<div class="am-g am-text-center am-animation-slide-top">
+    <h1>Pysaoke</h1>
+    <p>Integrated Development Environment<br>代码编辑，代码生成，界面设计，调试，编译</p>
+</div>
+<hr>
 <div class="am-g">
-    <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered">
-        <h1 class="log-title am-animation-slide-top">Pysaoke</h1>
-        <br>
-        <form class="am-form" id="log-form" method="post">
+    <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 am-u-sm-centered">
+        <form class="am-form" method="post">
             {% csrf_token %}
-            <div class="am-input-group am-radius am-animation-slide-left">
-                <input name="username" value="{{ form.username.value | default_if_none:"" }}" type="text" class="am-radius" placeholder="账号" required>
-                <span class="am-input-group-label am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
+            <div class="am-input-group am-animation-slide-left">
+                <input name="username" value="{{ form.username.value | default_if_none:"" }}" type="text" class="am-form-field" placeholder="账号" required>
+                <span class="am-input-group-label"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
             </div>
             <br>
-            <div class="am-input-group am-animation-slide-left log-animation-delay">
-                <input name="password" value="{{ form.password.value | default_if_none:"" }}" type="password" class="am-form-field am-radius" placeholder="密码" required>
-                <span class="am-input-group-label am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
+            <div class="am-input-group am-animation-slide-left">
+                <input name="password" value="{{ form.password.value | default_if_none:"" }}" type="password" class="am-form-field" placeholder="密码" required>
+                <span class="am-input-group-label"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
             </div>
             <br>
-            <button type="submit" class="am-btn am-btn-primary am-btn-block am-btn-lg am-radius am-animation-slide-bottom">登 录</button>
+            <button type="submit" class="am-btn am-btn-primary am-btn-block am-animation-slide-bottom">登 录</button>
             <p class="am-text-danger">{% if form.errors %}拒绝登录{% endif %}</p>
         </form>
     </div>
 </div>
-<footer class="">© 2014 AllMobilize, Inc. Licensed under MIT license.</footer>
+<footer class="am-topbar-fixed-bottom">
+    <p class="am-text-center"><small>© 2014 AllMobilize, Inc. Licensed under MIT license.</small></p>
+</footer>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </body>

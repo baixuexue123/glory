@@ -1,11 +1,7 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
+
 from .models import Image
-
-
-def editor(request):
-    return render(request, "cms/editor.html")
 
 
 @login_required
