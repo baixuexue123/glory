@@ -77,7 +77,7 @@ class TocMixin(object):
         yield '</ul>\n'
 
 
-class HighlightRenderer(TocMixin, mistune.Renderer):
+class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang=None):
         """Rendering block level code. ``pre > code``.
 

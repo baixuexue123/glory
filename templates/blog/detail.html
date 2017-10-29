@@ -12,7 +12,7 @@
             <div class="am-article-hd">
                 <h1 class="am-article-title blog-text-center">{{ post.title }}</h1>
                 <p class="am-article-meta blog-text-center">
-                    <span>{{ post.author }}</span>-<span>{{ post.pub_date }}</span>
+                    <span>{{ post.author }}</span>  <span>{{ post.pub_date.date }}</span>
                 </p>
             </div>
             <div class="am-article-bd">
@@ -22,7 +22,10 @@
         </article>
         <div class="am-g blog-article-widget blog-article-margin">
             <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
-                <span class="am-icon-tags"> &nbsp;</span><a href="#">标签</a> , <a href="#">TAG</a> , <a href="#">啦啦</a>
+                <span class="am-icon-tags"> &nbsp;</span>
+                {% for tag in post.tags.all %}
+                    <span>{{ tag.name }}&nbsp;</span>
+                {% endfor %}
             </div>
         </div>
         <hr>
@@ -36,13 +39,14 @@
         </ul>
         <hr>
         <form class="am-form am-g">
+            {% csrf_token %}
             <h3 class="blog-comment">评论</h3>
             <fieldset>
                 <div class="am-form-group">
                     <input type="text" placeholder="名字">
                 </div>
                 <div class="am-form-group">
-                    <textarea rows="5" placeholder="一字千金"></textarea>
+                    <textarea rows="5" placeholder="内容"></textarea>
                 </div>
                 <button type="submit" class="am-btn am-btn-default am-align-right">发表评论</button>
             </fieldset>

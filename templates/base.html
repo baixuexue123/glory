@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="glory">
-    <meta name="keywords" content="Blog Django Python">
+    <meta name="description" content="Blog">
+    <meta name="keywords" content="Django Python">
     <meta name="author" content="Pysaoke">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
@@ -31,9 +31,9 @@
                 <li{% if request.path == "/blog/archives/" %} class="am-active"{% endif %}><a href="{% url "blog:archives" %}">归档</a></li>
                 <li{% if request.path == "/gallery/photos/" %} class="am-active"{% endif %}><a href="{% url "gallery:photos" %}">YOYO日记</a></li>
             </ul>
-            <form class="am-topbar-form am-topbar-right am-form-inline" method="post" role="search">
+            <form class="am-topbar-form am-topbar-right am-form-inline" method="get" role="search">
                 <div class="am-form-group">
-                    <input type="text" name="title" class="am-form-field am-input-sm" placeholder="搜索">
+                    <input type="text" name="title" class="am-form-field am-input-sm" value="{{ request.GET.title }}" placeholder="搜索">
                 </div>
             </form>
         </div>

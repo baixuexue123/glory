@@ -4,4 +4,4 @@ django-imagekit==4.0.1
 django-uuslug==1.1.8
 PyMySQL=0.7.11
 redis==2.10.6
-mistune==0.7.4
+mistune==0.8

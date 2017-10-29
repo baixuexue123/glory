@@ -18,7 +18,7 @@ class PostViewMixin:
             posts = Post.objects.all()
         else:
             posts = Post.objects.published()
-        title = self.request.POST.get('title')
+        title = self.request.GET.get('title')
         if title:
             posts = posts.filter(title__contains=title)
         return posts
