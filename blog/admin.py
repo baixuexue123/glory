@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Category, Post
+from .models import Tag, Category, Post, Comment
 
 
 admin.site.register(Tag)
@@ -19,3 +19,10 @@ class PostAdmin(admin.ModelAdmin):
                 'style': 'font-family: monospace; width: 810px;',
             })
         return formfield
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'author', 'text', 'ip_address',
+                    'tree_path', 'active', 'created')
+    list_filter = ('active',)

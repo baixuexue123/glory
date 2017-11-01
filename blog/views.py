@@ -1,8 +1,10 @@
+from django.shortcuts import redirect, reverse, resolve_url
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from django.views.generic.dates import (
     ArchiveIndexView, DateDetailView
 )
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 
 class PostViewMixin:
@@ -62,3 +64,31 @@ class PostDateDetailView(PostViewMixin, DateDetailView):
         context['prev'] = Post.objects.filter(id__lt=self.object.id).order_by('id').last()
         context['next'] = Post.objects.filter(id__gt=self.object.id).order_by('id').first()
         return context
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+@require_POST
+def add_comment(request):
+    author = request.POST.get('author', '某人')
+    text = request.POST.get('text')
+    parent = request.POST.get('parent')
+
+    if parent is not None:
+        parent = Comment.objects.get(pk=parent)
+    post = Post.objects.get(pk=request.POST.get('post'))
+
+    c = Comment(
+        author=author, text=text,
+        parent=parent, post=post,
+        ip_address=get_client_ip(request)
+    )
+    c.save()
+    return redirect(resolve_url(post))

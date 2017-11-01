@@ -12,5 +12,10 @@ urlpatterns = [
         r'^archives/$',
         views.PostArchiveIndexView.as_view(),
         name="archives"
+    ),
+    url(
+        r'^comments/$',
+        views.add_comment,
+        name="comments"
     )
 ]
