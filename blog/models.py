@@ -90,7 +90,7 @@ class Comment(models.Model):
     ip_address = models.CharField(max_length=24, default='')
 
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
-    tree_path = models.CharField(max_length=80, editable=False)
+    tree_path = models.CharField(max_length=50, editable=False)
 
     post = models.ForeignKey(Post, related_name='comments')
 

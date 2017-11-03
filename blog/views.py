@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, reverse, resolve_url
+from django.shortcuts import redirect, resolve_url
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from django.views.generic.dates import (
@@ -77,13 +77,16 @@ def get_client_ip(request):
 
 @require_POST
 def add_comment(request):
-    author = request.POST.get('author', '某人')
-    text = request.POST.get('text')
+    author = request.POST.get('author', '某人').strip()
+    text = request.POST.get('text').strip()
     parent = request.POST.get('parent')
 
     if parent is not None:
         parent = Comment.objects.get(pk=parent)
     post = Post.objects.get(pk=request.POST.get('post'))
+
+    if not text:
+        return redirect(resolve_url(post))
 
     c = Comment(
         author=author, text=text,

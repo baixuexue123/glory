@@ -41,7 +41,7 @@
         <ul class="am-comments-list">
             {% for c in post.comments.all %}
             <li class="am-comment">
-                <img src="http://www.gravatar.com/avatar/1ecedeede84abbf371b9d8d656bb4265?d=mm&s=96" class="am-comment-avatar" width="32" height="32">
+                <img src="{% static "images/avatar.png" %}" class="am-comment-avatar" width="32" height="32">
                 <div class="am-comment-main">
                     <header class="am-comment-hd">
                         <div class="am-comment-meta">
