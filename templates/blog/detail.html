@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load markup %}
+{% load blog_tags %}
 {% block head %}
     <link rel="stylesheet" href="{% static "css/onedark.css" %}">
 {% endblock %}
@@ -54,9 +54,7 @@
                         </div>
                     </header>
                     <div class="am-comment-bd">
-                        {% autoescape off %}
-                        <p>{{ c.text|escape }}</p>
-                        {% endautoescape %}
+                        {{ c.text|safe_exclude|safe }}
                     </div>
                 </div>
             </li>

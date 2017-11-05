@@ -1,6 +1,6 @@
 import mistune
 from mistune import escape
-from bs4 import BeautifulSoup
+from lxml.html.clean import clean_html
 
 from django import template
 from django.utils.safestring import mark_safe
@@ -27,17 +27,6 @@ class HighlightRenderer(mistune.Renderer):
 @register.filter
 def markup(value, md=mistune.Markdown(escape=True, renderer=HighlightRenderer())):
     return mark_safe(md(value))
-
-
-INVALID_TAGS = ('script',)
-
-
-def clean_html(value):
-    soup = BeautifulSoup(value)
-    for tag in soup.findAll(True):
-        if tag.name in INVALID_TAGS:
-            tag.replaceWith(escape(tag))
-    return soup.renderContents()
 
 
 @register.filter
