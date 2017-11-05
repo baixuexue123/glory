@@ -1,4 +1,4 @@
-django==1.11.6
+django==1.11.7
 django-redis==4.8.0
 django-imagekit==4.0.1
 django-uuslug==1.1.8
