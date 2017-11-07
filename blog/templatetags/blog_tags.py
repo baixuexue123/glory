@@ -4,7 +4,6 @@ from lxml.html.clean import clean_html
 
 from django import template
 from django.utils.safestring import mark_safe
-from django.utils.html import escape
 
 register = template.Library()
 
@@ -31,5 +30,5 @@ def markup(value, md=mistune.Markdown(escape=True, renderer=HighlightRenderer())
 
 @register.filter
 def safe_exclude(text):
-    # eg: {{ post.description|safe_exclude|safe }}
+    # eg: {{ post.text|safe_exclude|safe }}
     return clean_html(text)

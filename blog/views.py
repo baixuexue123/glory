@@ -79,18 +79,13 @@ def get_client_ip(request):
 def add_comment(request):
     author = request.POST.get('author', '').strip() or '某人'
     text = request.POST.get('text').strip()
-    parent = request.POST.get('parent')
-
-    if parent is not None:
-        parent = get_object_or_404(Comment, pk=parent)
     post = get_object_or_404(Post, pk=request.POST.get('post'))
 
     if not text:
         return redirect(resolve_url(post))
 
     c = Comment(
-        author=author, text=text,
-        parent=parent, post=post,
+        author=author, text=text, post=post,
         ip_address=get_client_ip(request)
     )
     c.save()

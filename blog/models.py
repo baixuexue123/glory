@@ -89,36 +89,10 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     ip_address = models.CharField(max_length=24, default='')
 
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
-    tree_path = models.CharField(max_length=50, editable=False)
-
     post = models.ForeignKey(Post, related_name='comments')
 
     class Meta(object):
-        ordering = ('tree_path',)
         db_table = 'blog_comments'
 
-    @property
-    def depth(self):
-        return len(self.tree_path.split('/'))
-
-    @property
-    def root_id(self):
-        return int(self.tree_path.split('/')[0])
-
-    @property
-    def parents(self):
-        return Comment.objects.filter(
-            active=True, pk__in=self.tree_path.split('/')[:-1])
-
-    @property
-    def all_children(self):
-        return Comment.objects.filter(
-            active=True, tree_path__contains=self.pk).exclude(id=self.pk).all()
-
-    def save(self, *args, **kwargs):
-        if self.parent:
-            self.tree_path = '/'.join((self.parent.tree_path, str(self.pk)))
-        else:
-            self.tree_path = str(self.pk)
-        super().save(*args, **kwargs)
+    def get_ding_url(self):
+        return

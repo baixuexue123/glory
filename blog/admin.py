@@ -23,6 +23,5 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('post', 'author', 'text', 'ip_address',
-                    'tree_path', 'active', 'created')
+    list_display = ('post', 'author', 'text', 'ip_address', 'active', 'created')
     list_filter = ('active',)

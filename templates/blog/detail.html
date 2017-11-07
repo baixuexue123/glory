@@ -28,7 +28,6 @@
                 {% endfor %}
             </div>
         </div>
-        <hr>
         <ul class="am-pagination blog-article-margin">
             {% if prev %}
             <li class="am-pagination-prev"><a href="{{ prev.get_absolute_url }}">&laquo;{{ prev.title }}</a></li>
@@ -48,9 +47,7 @@
                             <a class="am-comment-author">{{ c.author }}</a>&ensp;<time>{{ c.created }}</time>
                         </div>
                         <div class="am-comment-actions">
-                            <a href="#"><i class="am-icon-thumbs-up"></i></a>
-                            <a href="#"><i class="am-icon-thumbs-down"></i></a>
-                            <span><i class="am-icon-reply"></i></span>
+                            <a class="ref"><i class="am-icon-reply"></i>&ensp;引用</a>
                         </div>
                     </header>
                     <div class="am-comment-bd">
@@ -64,13 +61,13 @@
         <form id="comment-form" class="am-form am-g" method="post" action="{% url "blog:comments" %}">
             {% csrf_token %}
             <input name="post" value="{{ post.pk }}" type="text" style="display: none">
-            <h3 class="blog-comment">评论</h3>
+            <h3 class="blog-comment">留言</h3>
             <fieldset>
                 <div class="am-form-group">
                     <input name="author" type="text" placeholder="名字" required>
                 </div>
                 <div class="am-form-group">
-                    <textarea name="text" rows="5" placeholder="说点什么" required></textarea>
+                    <textarea name="text" rows="8" placeholder="说点什么" required></textarea>
                 </div>
                 <button type="submit" class="am-btn am-btn-default am-align-right">发表</button>
             </fieldset>
@@ -84,7 +81,13 @@
 <script>
 hljs.initHighlightingOnLoad();
 $(document).ready(function () {
-
+    var $comment = $('#comment-form').find('textarea');
+    $('a.ref').click(function () {
+        var $self = $(this);
+        var author = $self.parents('header').find('a.am-comment-author').text();
+        var text = $self.parents('div.am-comment-main').find('div.am-comment-bd').html();
+        $comment.val('<blockquote><strong>'+author+'</strong>'+text+'</blockquote>')
+    })
 })
 </script>
 {% endblock %}
