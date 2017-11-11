@@ -8,3 +8,10 @@ class PhotoListView(LoginRequiredMixin, ListView):
     template_name = 'gallery/photos.html'
     paginate_by = 20
     context_object_name = 'photos'
+
+    def get_queryset(self):
+        photos = super().get_queryset()
+        title = self.request.GET.get('title')
+        if title:
+            photos = photos.filter(desc__contains=title)
+        return photos
