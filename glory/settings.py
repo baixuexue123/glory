@@ -9,6 +9,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_URL = '/login/'
+ROOT_URLCONF = 'glory.urls'
+WSGI_APPLICATION = 'glory.wsgi.application'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,8 +34,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'glory.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -49,8 +49,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'glory.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -79,6 +77,8 @@ CACHES = {
     }
 }
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 SESSION_COOKIE_NAME = 'sessionid'
@@ -86,20 +86,6 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 60*60*8
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
 LANGUAGE_CODE = 'zh-hans'
 
@@ -193,7 +179,7 @@ LOGGING = {
         'py.warnings': {
             'handlers': ['console'],
         },
-        'DTS': {
+        'glory': {
             'handlers': ['file'],
             'level': 'INFO',
         }

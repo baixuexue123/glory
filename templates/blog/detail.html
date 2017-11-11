@@ -86,7 +86,8 @@ $(document).ready(function () {
         var $self = $(this);
         var author = $self.parents('header').find('a.am-comment-author').text();
         var text = $self.parents('div.am-comment-main').find('div.am-comment-bd').html();
-        $comment.val('<blockquote><strong>'+author+'</strong>'+text+'</blockquote>')
+        $comment.val('<blockquote><strong>'+author+'</strong>'+text+'</blockquote>');
+        $comment.focus();
     })
 })
 </script>

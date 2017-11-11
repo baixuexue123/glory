@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Gallery{% endblock %}
 {% block content %}
-<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="am-g am-g-fixed blog-fixed">
     <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-bordered" data-am-gallery="{ pureview: true }">
         {% for photo in photos %}
         <li>
             <div class="am-gallery-item">
-                <img src="{{ photo.image_thumbnail.url }}" data-rel="{{ photo.image.url }}">
+                <img src="{{ photo.image_thumbnail.url }}" data-rel="{{ photo.image.url }}" alt="{{ photo.desc }}">
                 <h3 class="am-gallery-title">{{ photo.desc }}</h3>
                 <div class="am-gallery-desc">{{ photo.pub_date.date }}</div>
             </div>
@@ -14,4 +14,12 @@
         {% endfor %}
     </ul>
 </div>
+<ul class="am-pagination">
+    {% if page_obj.has_previous %}
+    <li class="am-pagination-prev"><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li class="am-pagination-next"><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+    {% endif %}
+</ul>
 {% endblock %}
