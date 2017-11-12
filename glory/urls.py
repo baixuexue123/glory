@@ -9,7 +9,7 @@ from blog.views import IndexView
 urlpatterns = [
     url(r'^$', IndexView.as_view()),
     url(r'^login/$', LoginView.as_view(template_name='login.html')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^glory/', admin.site.urls),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^gallery/', include('gallery.urls', namespace='gallery')),
     url(r'^cms/', include('cms.urls', namespace='cms')),
