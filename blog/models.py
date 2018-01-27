@@ -41,7 +41,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
     slug = models.SlugField(unique_for_date='pub_date', editable=False)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField()
     views = models.IntegerField(default=0)
     author = models.CharField(max_length=48)
     is_active = models.BooleanField(default=False)

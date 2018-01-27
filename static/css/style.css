@@ -193,6 +193,7 @@ a {
     padding:0;
     max-width:100%;
     height:auto;
+    margin-left: auto;
 }
 .blog-entry-article {
     margin:3rem 0;
