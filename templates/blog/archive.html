@@ -10,8 +10,8 @@
         {% for post in object_list %}
         <ul>
             <li>
-                <span class="am-u-sm-6 am-u-md-8"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></span>
-                <span class="am-u-sm-6 am-u-md-8">{{ post.pub_date.date }}</span>
+                <span class="am-u-sm-12 am-u-md-8"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></span>
+                <span class="am-u-sm-12 am-u-md-4">{{ post.pub_date.date }}</span>
             </li>
         </ul>
         {% endfor %}
