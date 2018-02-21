@@ -1,16 +1,13 @@
 from django.shortcuts import redirect, resolve_url, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-from django.views.generic.dates import (
-    ArchiveIndexView, DateDetailView
-)
+from django.views.generic.dates import ArchiveIndexView, DateDetailView
+
 from .models import Post, Category, Comment
 
 
 class PostViewMixin:
-
     date_field = 'pub_date'
-    paginate_by = 20
 
     def get_allow_future(self):
         return self.request.user.is_staff
@@ -36,6 +33,25 @@ class PostArchiveIndexView(PostViewMixin, ArchiveIndexView):
     allow_empty = True
     date_list_period = 'year'
     template_name = 'blog/archive.html'
+    make_object_list = True
+
+    def get(self, request, *args, **kwargs):
+        self.date_list, self.object_list = self.get_dated_items()
+        context = self.get_context_data(object_list=self.object_list,
+                                        date_list=self.date_list)
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        """
+        Get the context for this view.
+        """
+        object_list = kwargs.pop('object_list', self.object_list)
+        date_list = kwargs.pop('date_list', self.date_list)
+        context = {
+            'categories': Category.objects.all(),
+            'objects': zip([d.year for d in date_list], object_list)
+        }
+        return context
 
     def get_dated_items(self):
         """
@@ -51,8 +67,11 @@ class PostArchiveIndexView(PostViewMixin, ArchiveIndexView):
         if not date_list:
             qs = qs.none()
 
-        extra = {'categories': Category.objects.all()}
-        return (date_list, qs, extra)
+        object_list = []
+        for date in date_list:
+            object_list.append(qs.filter(pub_date__year=date.year))
+
+        return (date_list, object_list)
 
 
 class PostDateDetailView(PostViewMixin, DateDetailView):

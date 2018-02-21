@@ -4,10 +4,10 @@
 {% block content %}
 <div class="am-g am-g-fixed blog-fixed">
     <div class="am-u-md-8 am-u-sm-12">
-    {% for date in date_list %}
-        <h1>{{ date.year }}</h1>
+    {% for year, qs in objects %}
+        <h1>{{ year }}</h1>
         <hr>
-        {% for post in object_list %}
+        {% for post in qs %}
         <ul>
             <li>
                 <span class="am-u-sm-12 am-u-md-8"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></span>
